@@ -32,7 +32,7 @@ spec:
         
         volumeMounts:
         - name: my-mongodb-storage
-          mountPath: mongodb/data/
+          mountPath: data/db
   volumeClaimTemplates:
   - metadata:
       name: my-mongodb-storage
