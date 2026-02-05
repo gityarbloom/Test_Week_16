@@ -23,13 +23,14 @@ def get_employees_by_age_and_role():
     projection = {"_id": 0}
     return list(mongo_client[db_name][coll_name].find(query, projection))
 
-
 def get_top_seniority_employees_excluding_hr():
     query = {
         "job_role.department": {"$ne": "HR"}
     }
     projection = {"_id": 0}
-    cursor = list(mongo_client[db_name][coll_name].find(query, projection)).sort("years_at_company", -1).limit(7)
+    
+    cursor = mongo_client[db_name][coll_name].find(query, projection).sort("years_at_company", -1).limit(7)
+    
     return list(cursor)
 
 
