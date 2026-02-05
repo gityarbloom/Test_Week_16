@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: coordinates-api-svc
+  name: my-api-service
 spec:
   selector:
-    app: coordinates-api
+    app: my-api
   type: NodePort
   ports:
   - port: 8000
     targetPort: 8000
-    nodePort: 30080
+    nodePort: 30085

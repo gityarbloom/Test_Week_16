@@ -1,36 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app
+  name: my-api
   labels:
-    app: my-app
+    app: my-api
 spec:
   replicas: 3
   
   selector:
     matchLabels:
-      app: my-app
+      app: my-api
   
   template:
     metadata:
       labels:
-        app: my-app
+        app: my-api
     spec:
       containers:
-      - name: my-app
-        image: israelyarbloom/my-app:v1
+      - name: my-api
+        image: israelyarbloom/my-api:v1
         
         ports:
         - containerPort: 8000
 
         env:
-        - name: MONGO_URL
-          value: ""
-        - name: POSTGRES_PORT
-          value: "5432"
-        - name: POSTGRES_DB
-          value: "coordinates_db"
-        - name: POSTGRES_USER
-          value: "postgres"
-        - name: POSTGRES_PASSWORD
-          value: "postgres"
+        - name: MONGO_URI
+          value: "my-mongodb-service"
+        - name: MONGO_PORT
+          value: "27017"
+        - name: DB_NAME
+          value: "employees_data"

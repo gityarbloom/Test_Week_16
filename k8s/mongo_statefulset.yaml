@@ -1,48 +1,43 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgres
+  name: my-mongodb
   labels:
-    app: postgres
+    app: my-mongodb
 spec:
-  serviceName: postgres-cvs
+  serviceName: my-mongodb-service
   
   replicas: 3
   
   selector:
     matchLabels:
-      app: postgres
+      app: my-mongodb
   
   template:
     metadata:
       labels:
-        app: postgres
+        app: my-mongodb
         tier: database
     spec:
       containers:
-      - name: postgres
-        image: postgres:15
+      - name: my-mongodb
+        image: docker.io/library/mongo:7
         ports:
-        - containerPort: 5432
-          name: postgres
+        - containerPort: 27017
+          name: my-mongodb
         
         env:
-        - name: POSTGRES_DB
-          value: "coordinates_db"
-        - name: POSTGRES_USER
-          value: "postgres"
-        - name: POSTGRES_PASSWORD
-          value: "postgres"
+        - name: DB_NAME
+          value: "employees_data"
         
         volumeMounts:
-        - name: postgres-storage
-          mountPath: /var/lib/postgresql/data
-          
+        - name: my-mongodb-storage
+          mountPath: mongodb/data/
   volumeClaimTemplates:
   - metadata:
-      name: postgres-storage
+      name: my-mongodb-storage
       labels:
-        app: postgres
+        app: my-mongodb
     spec:
       accessModes: ["ReadWriteOnce"]
       resources:
